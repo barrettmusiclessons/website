@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Barrett Music Lessons - Private lessons in guitar, bass, banjo, ukulele, mandolin, and music theory with Dr. Emily Barrett in Pomona, CA and online.">
+  <title>Barrett Music Lessons | Guitar, Bass, Banjo, Ukulele, Mandolin Lessons</title>
+
+  <!-- Preload hero image -->
+  <link rel="preload" as="image" href="images/guitar-hero.webp">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-primary': '#f4ebce',
+            'bg-secondary': '#f0e2c7',
+            'bg-tertiary': '#e8d7bb',
+            'accent': '#48487f',
+            'accent-hover': '#3b3b69',
+            'accent-light': '#6262a0',
+            'text-primary': '#2d2a26',
+            'text-secondary': '#5c574f',
+            'text-muted': '#847d73',
+            'border-light': '#d9cdb5',
+            'border-medium': '#c4b699',
+          },
+          fontFamily: {
+            'heading': ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            'body': ['"Source Sans 3"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          boxShadow: {
+            'card': '0 2px 8px rgba(45, 42, 38, 0.08)',
+            'card-hover': '0 8px 24px rgba(45, 42, 38, 0.15)',
+            'form': '0 4px 24px rgba(45, 42, 38, 0.08)',
+            'image': '0 4px 12px rgba(45, 42, 38, 0.12), 0 12px 32px rgba(45, 42, 38, 0.08)',
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* CSS Custom Properties */
+    :root {
+      --bg-primary: #f4ebce;
+      --bg-secondary: #f0e2c7;
+      --bg-tertiary: #e8d7bb;
+      --accent: #48487f;
+      --accent-hover: #3b3b69;
+      --accent-light: #6262a0;
+      --text-primary: #2d2a26;
+      --text-secondary: #5c574f;
+      --text-muted: #847d73;
+      --border-light: #d9cdb5;
+      --border-medium: #c4b699;
+      --shadow: rgba(45, 42, 38, 0.08);
+      --shadow-strong: rgba(45, 42, 38, 0.15);
+
+      /* Motion */
+      --duration-fast: 150ms;
+      --duration-normal: 250ms;
+      --duration-slow: 400ms;
+      --duration-slower: 600ms;
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Base Styles */
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      background: var(--bg-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      padding: 12px 16px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 9999;
+      transition: top 200ms ease;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    /* Focus States */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30%;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(244, 235, 206, 0.3) 30%,
+        rgba(244, 235, 206, 0.7) 60%,
+        #f4ebce 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero__image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      z-index: -1;
+    }
+
+    @media (max-width: 639px) {
+      .hero__image {
+        inset: -15%;
+        width: 130%;
+        height: 130%;
+        max-width: none;
+        object-position: 47% 65%;
+      }
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.6;
+      animation: bounce 2.5s ease-in-out infinite;
+      z-index: 2;
+      transition: opacity 300ms ease;
+    }
+
+    .scroll-indicator.hidden {
+      opacity: 0;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-8px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-4px);
+      }
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 300ms ease, box-shadow 300ms ease;
+    }
+
+    .nav--scrolled {
+      background: rgba(244, 235, 206, 0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 3px var(--shadow);
+    }
+
+    /* Mobile Menu */
+    .nav__mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100dvh;
+      height: 100vh;
+      background: #f4ebce;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 300ms ease, visibility 300ms ease;
+      z-index: 999;
+    }
+
+    .nav__mobile.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Hamburger Animation */
+    .nav__hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-primary);
+      transition: transform 200ms ease, opacity 200ms ease;
+    }
+
+    .nav__hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav__hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav__hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Scroll Reveal Animations (disabled) */
+
+    /* Card Hover Effects */
+    .lesson-card {
+      transition: transform var(--duration-normal) var(--ease-out-expo),
+                  box-shadow var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .lesson-card:hover {
+      transform: none;
+    }
+
+    .lesson-card:hover img {
+      transform: none;
+    }
+
+    .lesson-card img {
+      transition: transform var(--duration-slow) var(--ease-out-expo);
+    }
+
+    /* Image Hover in About */
+    .about-image img {
+      transition: transform 500ms var(--ease-out-expo);
+    }
+
+    .about-image:hover img {
+      transform: none;
+    }
+
+    /* Form Input Base Styling */
+    .form-input,
+    .form-select,
+    .form-textarea {
+      border-radius: 0.5rem;
+      border: 1.5px solid #c4b699;
+      background: #fffdf8;
+      box-shadow: inset 0 1px 2px rgba(45, 42, 38, 0.04);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: #a8a099;
+    }
+
+    /* Form Focus States */
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #48487f;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(72, 72, 127, 0.12), inset 0 1px 2px rgba(45, 42, 38, 0.04);
+    }
+
+    /* Custom Checkbox Styling */
+    .form-check {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1.125rem;
+      height: 1.125rem;
+      border: 1.5px solid #c4b699;
+      border-radius: 0.25rem;
+      background: #fffdf8;
+      cursor: pointer;
+      transition: all 150ms ease;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .form-check:checked {
+      background: #48487f;
+      border-color: #48487f;
+    }
+
+    .form-check:checked::after {
+      content: '';
+      position: absolute;
+      left: 4.5px;
+      top: 1.5px;
+      width: 5px;
+      height: 9px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .form-check:focus-visible {
+      box-shadow: 0 0 0 3px rgba(72, 72, 127, 0.12);
+    }
+
+    /* Custom Radio Styling */
+    .form-radio {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1.125rem;
+      height: 1.125rem;
+      border: 1.5px solid #c4b699;
+      border-radius: 50%;
+      background: #fffdf8;
+      cursor: pointer;
+      transition: all 150ms ease;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .form-radio:checked {
+      border-color: #48487f;
+      background: #fffdf8;
+    }
+
+    .form-radio:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #48487f;
+    }
+
+    .form-radio:focus-visible {
+      box-shadow: 0 0 0 3px rgba(72, 72, 127, 0.12);
+    }
+
+    /* Checkbox/Radio Label Hover */
+    .form-check-label:hover .form-check,
+    .form-check-label:hover .form-radio {
+      border-color: #48487f;
+    }
+
+    /* Button Hover Effects */
+    .btn-primary {
+      transition: background var(--duration-fast) var(--ease-standard),
+                  transform var(--duration-fast) var(--ease-standard),
+                  box-shadow var(--duration-fast) var(--ease-standard);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(72, 72, 127, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      transition-duration: 50ms;
+    }
+
+    /* Pricing Card Popular */
+    .pricing-card--popular {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(72, 72, 127, 0.15);
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal,
+      .reveal-stagger > * {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 767px) {
+      .nav {
+        height: 64px;
+      }
+
+      body {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="nav" aria-label="Main navigation">
+    <a href="#" class="font-heading text-xl font-medium text-text-primary no-underline relative z-[1001]">Barrett Music Lessons</a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex gap-8">
+      <a href="#about" class="font-body text-[0.9375rem] font-medium text-text-secondary no-underline hover:text-accent transition-colors duration-150">About</a>
+      <a href="#lessons" class="font-body text-[0.9375rem] font-medium text-text-secondary no-underline hover:text-accent transition-colors duration-150">Lessons</a>
+      <a href="#rates" class="font-body text-[0.9375rem] font-medium text-text-secondary no-underline hover:text-accent transition-colors duration-150">Rates</a>
+      <a href="#contact" class="font-body text-[0.9375rem] font-medium text-text-secondary no-underline hover:text-accent transition-colors duration-150">Contact</a>
+    </div>
+
+    <!-- Hamburger Button -->
+    <button
+      class="nav__hamburger flex md:hidden flex-col justify-center gap-[5px] w-6 h-6 bg-transparent border-none cursor-pointer p-0 relative z-[1001]"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </nav>
+
+  <!-- Mobile Menu (outside nav to avoid backdrop-filter containing block) -->
+  <div class="nav__mobile" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <a href="#about" class="font-heading text-3xl text-text-primary no-underline">About</a>
+    <a href="#lessons" class="font-heading text-3xl text-text-primary no-underline">Lessons</a>
+    <a href="#rates" class="font-heading text-3xl text-text-primary no-underline">Rates</a>
+    <a href="#contact" class="font-heading text-3xl text-text-primary no-underline">Contact</a>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+
+    <!-- Hero Section -->
+    <section class="hero" aria-label="Welcome">
+      <img
+        src="images/guitar-hero.webp"
+        alt=""
+        class="hero__image"
+        aria-hidden="true"
+      >
+
+      <div class="relative z-10 text-center px-6 max-w-[700px]">
+        <h1 class="font-heading font-normal text-text-primary mb-4 leading-[1.1] tracking-[-0.02em]" style="font-size: clamp(2.625rem, 8vw, 4.5rem);">
+          Barrett Music Lessons
+        </h1>
+        <p class="font-body text-text-secondary mb-8 tracking-[0.05em] hidden sm:block" style="font-size: clamp(1rem, 2.5vw, 1.25rem);">
+          Guitar <span class="px-3">·</span> Bass <span class="px-3">·</span> Banjo <span class="px-3">·</span> Ukulele <span class="px-3">·</span> Mandolin <span class="px-3">·</span> Music Theory
+        </p>
+        <div class="font-body text-text-secondary mb-8 tracking-[0.05em] sm:hidden" style="font-size: clamp(1rem, 2.5vw, 1.25rem);">
+          <p>Guitar <span class="px-3">·</span> Bass <span class="px-3">·</span> Banjo</p>
+          <p>Ukulele <span class="px-3">·</span> Mandolin <span class="px-3">·</span> Music Theory</p>
+        </div>
+        <a
+          href="#contact"
+          class="btn-primary inline-block px-8 py-4 bg-accent hover:bg-accent-hover text-white font-body text-base font-semibold no-underline rounded"
+        >
+          Schedule your Free Trial Lesson
+        </a>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 bg-bg-primary" aria-labelledby="about-heading">
+      <div class="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <!-- Text Content -->
+          <div class="reveal max-w-[520px]">
+            <h2 id="about-heading" class="font-heading font-medium text-text-primary mb-6 leading-[1.2] tracking-[-0.01em]" style="font-size: clamp(1.875rem, 5vw, 2.625rem);">
+              About
+            </h2>
+            <div class="space-y-6">
+              <p class="text-text-secondary leading-[1.7]">
+                Since 2008, Dr. Emily Barrett has been providing her students with the knowledge and skills they need to become informed, independent, well-rounded musicians. With patience and warmth, she has led all types of students toward their unique musical goals.
+              </p>
+              <p class="text-text-secondary leading-[1.7]">
+                As a performer, she has been featured as a soloist and a member of many groups playing stringed instruments and keyboards, while also being involved in songwriting, composing, and arranging. Several of her works are currently published by the California Guitar Archives, and she can be heard playing lap-steel and acoustic guitars on the soundtrack for the independent film At Your Own Risk.
+              </p>
+              <p class="text-text-secondary leading-[1.7]">
+                Her doctoral work involved writing the first-of-its-kind method book for the 5-string banjo in the Western Classical style. She has been a member of the music faculty at Cal Poly Pomona since 2022.
+              </p>
+            </div>
+          </div>
+
+          <!-- Image Grid -->
+          <div class="reveal grid grid-cols-2 gap-4 order-first lg:order-last">
+            <div class="about-image rounded-lg overflow-hidden shadow-image aspect-[9/10]">
+              <img
+                src="images/about-1-new.webp"
+                alt="Teaching studio interior"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width="400"
+                height="444"
+              >
+            </div>
+            <div class="about-image rounded-lg overflow-hidden shadow-image aspect-[9/10]">
+              <img
+                src="images/about-2-new.webp"
+                alt="Teaching studio detail"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width="400"
+                height="444"
+              >
+            </div>
+            <div class="about-image col-span-2 rounded-lg overflow-hidden shadow-image aspect-video relative">
+              <img
+                src="images/20260219_214015.webp"
+                alt="Collection of stringed instruments including bass, guitar, and banjo"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width="800"
+                height="450"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio Section -->
+    <section class="relative overflow-hidden" aria-label="Teaching studio">
+      <img
+        src="images/studio-new.webp"
+        alt="Private music lesson studio with music stand, chairs, and instrument cases"
+        class="block w-full h-auto"
+        loading="lazy"
+      >
+      <!-- Light black wash for mood -->
+      <div class="absolute inset-0 pointer-events-none" style="background: rgba(0,0,0,0.15);"></div>
+      <!-- Vertical fade to black at top/bottom -->
+      <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.55) 100%);"></div>
+      <!-- Vignette -->
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.3) 100%);"></div>
+    </section>
+
+    <!-- Lessons Offered Section -->
+    <section id="lessons" class="py-16 md:py-24 bg-bg-secondary" aria-labelledby="lessons-heading">
+      <div class="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
+
+        <!-- Section Header -->
+        <div class="reveal text-center max-w-[600px] mx-auto mb-12 md:mb-16">
+          <h2 id="lessons-heading" class="font-heading font-medium text-text-primary mb-3 leading-[1.2] tracking-[-0.01em]" style="font-size: clamp(1.875rem, 5vw, 2.625rem);">
+            Lessons Offered
+          </h2>
+          <p class="text-text-muted text-lg">
+            All experience levels welcome; recommended age 7+
+          </p>
+        </div>
+
+        <!-- Lessons Grid -->
+        <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-[400px] sm:max-w-none mx-auto">
+
+          <!-- Guitar -->
+          <article class="lesson-card group relative rounded-2xl overflow-hidden aspect-[3/4] sm:aspect-[4/5] shadow-image">
+            <img
+              src="images/20260219_214150.webp"
+              alt="Classical guitar diagonal close-up"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+              width="400"
+              height="500"
+            >
+            <div class="absolute inset-0 to-transparent" style="top: 60%; background: linear-gradient(to top, rgba(35,30,25,0.8) 0%, rgba(35,30,25,0) 100%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="font-heading text-2xl font-medium text-white">Guitar</h3>
+            </div>
+          </article>
+
+          <!-- Electric Bass -->
+          <article class="lesson-card group relative rounded-2xl overflow-hidden aspect-[3/4] sm:aspect-[4/5] shadow-image">
+            <img
+              src="images/20260219_215127.webp"
+              alt="Mint green electric bass guitar"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+              width="400"
+              height="500"
+            >
+            <div class="absolute inset-0 to-transparent" style="top: 60%; background: linear-gradient(to top, rgba(35,30,25,0.8) 0%, rgba(35,30,25,0) 100%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="font-heading text-2xl font-medium text-white">Electric Bass</h3>
+            </div>
+          </article>
+
+          <!-- Banjo -->
+          <article class="lesson-card group relative rounded-2xl overflow-hidden aspect-[3/4] sm:aspect-[4/5] shadow-image">
+            <img
+              src="images/20260219_214306.webp"
+              alt="Washburn banjo full body view"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+              width="400"
+              height="500"
+            >
+            <div class="absolute inset-0 to-transparent" style="top: 60%; background: linear-gradient(to top, rgba(35,30,25,0.8) 0%, rgba(35,30,25,0) 100%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="font-heading text-2xl font-medium text-white">Banjo</h3>
+            </div>
+          </article>
+
+          <!-- Ukulele -->
+          <article class="lesson-card group relative rounded-2xl overflow-hidden aspect-[3/4] sm:aspect-[4/5] shadow-image">
+            <img
+              src="images/20260219_215621.webp"
+              alt="Ukulele close-up showing bridge, strings, and spruce top"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+              width="400"
+              height="500"
+            >
+            <div class="absolute inset-0 to-transparent" style="top: 60%; background: linear-gradient(to top, rgba(35,30,25,0.8) 0%, rgba(35,30,25,0) 100%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="font-heading text-2xl font-medium text-white">Ukulele</h3>
+            </div>
+          </article>
+
+          <!-- Mandolin -->
+          <article class="lesson-card group relative rounded-2xl overflow-hidden aspect-[3/4] sm:aspect-[4/5] shadow-image">
+            <img
+              src="images/20260219_221129.webp"
+              alt="Mandolin full body with sunburst finish and headstock"
+              class="absolute inset-0 w-full h-full object-cover object-bottom"
+              loading="lazy"
+              width="400"
+              height="500"
+            >
+            <div class="absolute inset-0 to-transparent" style="top: 60%; background: linear-gradient(to top, rgba(35,30,25,0.8) 0%, rgba(35,30,25,0) 100%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="font-heading text-2xl font-medium text-white">Mandolin</h3>
+            </div>
+          </article>
+
+          <!-- Music Theory -->
+          <article class="lesson-card group relative rounded-2xl overflow-hidden aspect-[3/4] sm:aspect-[4/5] shadow-image">
+            <img
+              src="images/sheet-music.webp"
+              alt="Sheet music on a music stand"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+              width="400"
+              height="500"
+            >
+            <div class="absolute inset-0 to-transparent" style="top: 60%; background: linear-gradient(to top, rgba(35,30,25,0.8) 0%, rgba(35,30,25,0) 100%);"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="font-heading text-2xl font-medium text-white">Music Theory and Ear Training</h3>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="rates" class="py-16 md:py-24 bg-bg-primary" aria-labelledby="pricing-heading">
+      <div class="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
+
+        <!-- Section Header -->
+        <div class="reveal text-center max-w-[600px] mx-auto mb-14">
+          <h2 id="pricing-heading" class="font-heading font-medium text-text-primary leading-tight" style="font-size: clamp(2rem, 5vw, 3rem);">
+            Lesson Rates
+          </h2>
+        </div>
+
+        <!-- Stacked Pricing List -->
+        <div class="reveal max-w-[720px] mx-auto bg-white/80 backdrop-blur-sm rounded-2xl px-8 md:px-12 py-10 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
+
+          <!-- 30 Minutes -->
+          <div class="py-7 border-t border-border-light">
+            <div class="flex items-baseline justify-between gap-6">
+              <div class="flex items-baseline gap-3">
+                <span class="font-heading text-[42px] md:text-5xl font-medium text-text-primary leading-none">$35</span>
+                <span class="font-body text-sm text-text-muted">/lesson</span>
+              </div>
+              <div class="text-right">
+                <p class="font-heading text-xl md:text-2xl text-text-primary font-medium">30 Minutes</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 45 Minutes -->
+          <div class="py-7 border-t border-border-light">
+            <div class="flex items-baseline justify-between gap-6">
+              <div class="flex items-baseline gap-3">
+                <span class="font-heading text-[42px] md:text-5xl font-medium text-text-primary leading-none">$50</span>
+                <span class="font-body text-sm text-text-muted">/lesson</span>
+              </div>
+              <div class="text-right">
+                <p class="font-heading text-xl md:text-2xl text-text-primary font-medium">45 Minutes</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 60 Minutes -->
+          <div class="py-7 border-t border-border-light">
+            <div class="flex items-baseline justify-between gap-6">
+              <div class="flex items-baseline gap-3">
+                <span class="font-heading text-[42px] md:text-5xl font-medium text-text-primary leading-none">$60</span>
+                <span class="font-body text-sm text-text-muted">/lesson</span>
+              </div>
+              <div class="text-right">
+                <p class="font-heading text-xl md:text-2xl text-text-primary font-medium">60 Minutes</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-border-light"></div>
+
+          <!-- Promos -->
+          <div class="mt-12 space-y-8">
+            <div class="flex items-start gap-4">
+              <span class="font-heading text-2xl text-accent leading-none mt-0.5 select-none" aria-hidden="true">&mdash;</span>
+              <p class="font-body text-text-secondary text-[15px] leading-relaxed">
+                To see if Barrett Music Lessons is right for you, all students receive one free 30-minute trial lesson.
+              </p>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="font-heading text-2xl text-accent leading-none mt-0.5 select-none" aria-hidden="true">&mdash;</span>
+              <p class="font-body text-text-secondary text-[15px] leading-relaxed">
+                Receive a free 30-minute lesson for each friend you refer who signs up for at least one month of lessons.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Listen Section -->
+    <section class="listen-section relative py-20 md:py-28 text-center overflow-hidden" aria-labelledby="listen-heading">
+      <!-- Background Image -->
+      <img
+        src="images/20260219_221454.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      >
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(72, 72, 127, 0.82) 0%, rgba(59, 59, 105, 0.92) 100%);"></div>
+      <!-- Content -->
+      <div class="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
+        <h2 id="listen-heading" class="font-heading font-normal text-white mb-6" style="font-size: clamp(1.5rem, 4vw, 2rem);">
+          Sample Recordings
+        </h2>
+        <a
+          href="https://soundcloud.com/emilynbarrett"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-accent font-semibold no-underline rounded hover:bg-bg-secondary transition-all duration-150 hover:-translate-y-0.5"
+        >
+          Listen on SoundCloud
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-bg-secondary" aria-labelledby="contact-heading">
+      <div class="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
+
+        <!-- Section Header -->
+        <div class="reveal text-center max-w-[600px] mx-auto mb-12">
+          <h2 id="contact-heading" class="font-heading font-medium text-text-primary mb-3 leading-[1.2] tracking-[-0.01em]" style="font-size: clamp(1.875rem, 5vw, 2.625rem);">
+            Contact
+          </h2>
+          <p class="text-text-muted text-lg">
+            Schedule your free trial lesson today!
+          </p>
+        </div>
+
+        <!-- Contact Info Bar -->
+        <div class="reveal grid sm:grid-cols-3 gap-6 md:gap-8 max-w-[800px] mx-auto mb-12">
+          <address class="not-italic text-center">
+            <svg class="w-6 h-6 text-accent mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <p class="font-semibold text-text-primary text-sm mb-1">Email</p>
+            <a href="mailto:barrettmusiclessons@gmail.com" class="text-sm text-accent no-underline hover:underline">barrettmusiclessons@gmail.com</a>
+          </address>
+          <address class="not-italic text-center">
+            <svg class="w-6 h-6 text-accent mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <p class="font-semibold text-text-primary text-sm mb-1">Call or text:</p>
+            <a href="tel:+19099060447" class="text-sm text-accent no-underline hover:underline">(909) 906-0447</a>
+          </address>
+          <address class="not-italic text-center">
+            <svg class="w-6 h-6 text-accent mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <p class="font-semibold text-text-primary text-sm mb-1">Location</p>
+            <p class="text-sm text-text-secondary">Ontario, CA 91762</p>
+          </address>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="reveal max-w-[640px] mx-auto">
+          <form class="bg-white rounded-xl p-8 md:p-10 shadow-form" action="#" method="POST" novalidate>
+            <p class="text-sm text-text-muted mb-6">* Required</p>
+
+            <!-- Form error summary -->
+            <div id="form-errors" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded text-sm text-red-700" role="alert" aria-live="polite"></div>
+
+            <!-- Name + Email row -->
+            <div class="grid sm:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label for="name" class="block font-medium text-[0.9375rem] text-text-primary mb-2">Full Name <span class="text-red-600" aria-hidden="true">*</span></label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  aria-required="true"
+                  autocomplete="name"
+                  class="form-input w-full px-4 py-3.5 font-body text-base text-text-primary bg-white border border-border-medium rounded transition-all duration-200"
+                  placeholder="Your name"
+                >
+                <p id="name-error" class="hidden mt-1 text-sm text-red-600"></p>
+              </div>
+              <div>
+                <label for="email" class="block font-medium text-[0.9375rem] text-text-primary mb-2">Email <span class="text-red-600" aria-hidden="true">*</span></label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  aria-required="true"
+                  autocomplete="email"
+                  class="form-input w-full px-4 py-3.5 font-body text-base text-text-primary bg-white border border-border-medium rounded transition-all duration-200"
+                  placeholder="your@email.com"
+                >
+                <p id="email-error" class="hidden mt-1 text-sm text-red-600"></p>
+              </div>
+            </div>
+
+            <!-- Instrument(s) -->
+            <fieldset class="mb-6">
+              <legend class="block font-medium text-[0.9375rem] text-text-primary mb-3">Instrument(s) you're interested in</legend>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="checkbox" name="instrument" value="guitar" class="w-5 h-5 accent-accent rounded">
+                  <span class="text-text-secondary">Guitar</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="checkbox" name="instrument" value="electric-bass" class="w-5 h-5 accent-accent rounded">
+                  <span class="text-text-secondary">Electric Bass</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="checkbox" name="instrument" value="banjo" class="w-5 h-5 accent-accent rounded">
+                  <span class="text-text-secondary">Banjo</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="checkbox" name="instrument" value="ukulele" class="w-5 h-5 accent-accent rounded">
+                  <span class="text-text-secondary">Ukulele</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="checkbox" name="instrument" value="mandolin" class="w-5 h-5 accent-accent rounded">
+                  <span class="text-text-secondary">Mandolin</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="checkbox" name="instrument" value="music-theory" class="w-5 h-5 accent-accent rounded">
+                  <span class="text-text-secondary">Music Theory</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Lesson Format -->
+            <fieldset class="mb-6">
+              <legend class="block font-medium text-[0.9375rem] text-text-primary mb-3">Lesson Format</legend>
+              <div class="flex flex-wrap gap-x-6 gap-y-3" role="radiogroup">
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="radio" name="format" value="in-person" required aria-required="true" class="w-5 h-5 accent-accent">
+                  <span class="text-text-secondary">In-Person</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="radio" name="format" value="online" aria-required="true" class="w-5 h-5 accent-accent">
+                  <span class="text-text-secondary">Online</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input type="radio" name="format" value="either" aria-required="true" class="w-5 h-5 accent-accent">
+                  <span class="text-text-secondary">Either</span>
+                </label>
+              </div>
+              <p id="format-error" class="hidden mt-2 text-sm text-red-600"></p>
+            </fieldset>
+
+            <!-- Message -->
+            <div class="mb-8">
+              <label for="message" class="block font-medium text-[0.9375rem] text-text-primary mb-2">Anything else?</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="3"
+                class="form-textarea w-full px-4 py-3.5 font-body text-base text-text-primary bg-white border border-border-medium rounded transition-all duration-200 resize-y"
+                placeholder="Preferred days/times, questions, goals..."
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="btn-primary w-full py-4 bg-accent hover:bg-accent-hover text-white font-body text-base font-semibold border-none rounded cursor-pointer"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 pb-8 bg-accent text-center">
+    <div class="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
+
+      <!-- Business Name -->
+      <p class="font-heading text-2xl font-medium text-white mb-5">Barrett Music Lessons</p>
+
+      <!-- Footer Navigation -->
+      <nav class="flex justify-center flex-wrap gap-6 mb-6" aria-label="Footer navigation">
+        <a href="#" class="text-sm text-white/70 no-underline hover:text-white transition-colors duration-150">Home</a>
+        <a href="#about" class="text-sm text-white/70 no-underline hover:text-white transition-colors duration-150">About</a>
+        <a href="#lessons" class="text-sm text-white/70 no-underline hover:text-white transition-colors duration-150">Lessons</a>
+        <a href="#rates" class="text-sm text-white/70 no-underline hover:text-white transition-colors duration-150">Rates</a>
+        <a href="#contact" class="text-sm text-white/70 no-underline hover:text-white transition-colors duration-150">Contact</a>
+      </nav>
+
+      <!-- Social Links -->
+      <div class="flex justify-center gap-4 mb-6">
+        <a
+          href="https://soundcloud.com/emilynbarrett"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center w-10 h-10 text-white/60 hover:text-white transition-colors duration-150"
+          aria-label="SoundCloud"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.058-.05-.1-.084-.1zm-.899.828c-.06 0-.091.037-.104.094L0 14.479l.165 1.308c.014.057.045.094.09.094s.089-.037.099-.094l.19-1.308-.19-1.334c-.01-.057-.054-.094-.099-.094zm1.83-1.229c-.061 0-.12.045-.12.104l-.21 2.563.225 2.458c0 .06.045.104.106.104.061 0 .12-.044.12-.104l.24-2.474-.24-2.547c0-.06-.059-.104-.12-.104zm.944-.424c-.074 0-.135.06-.14.134l-.195 2.916.209 2.563c.006.075.06.135.135.135.074 0 .135-.061.15-.135l.225-2.563-.225-2.916c-.016-.074-.076-.134-.15-.134zm1.065.236c-.09 0-.15.075-.15.164l-.158 2.67.158 2.563c0 .09.061.164.15.164.09 0 .15-.074.164-.164l.18-2.563-.18-2.685c-.014-.09-.074-.164-.164-.164zm1.035-.449c-.1 0-.176.074-.18.18l-.15 3.133.15 2.563c.004.104.08.18.18.18.1 0 .18-.076.195-.18l.166-2.563-.166-3.133c-.015-.105-.095-.18-.195-.18zm1.051-.045c-.12 0-.21.09-.21.21l-.135 3.164.135 2.548c0 .12.09.21.21.21.12 0 .209-.091.225-.21l.15-2.549-.15-3.164c-.016-.119-.105-.21-.225-.21zm1.065.166c-.135 0-.24.104-.24.24l-.12 2.998.12 2.534c0 .135.106.24.24.24.135 0 .24-.105.256-.24l.134-2.534-.134-3.013c-.016-.135-.121-.24-.256-.24zm1.065-.42c-.149 0-.27.119-.27.27l-.105 3.418.105 2.519c0 .15.121.27.27.27.149 0 .27-.12.285-.27l.119-2.519-.119-3.418c-.015-.15-.136-.27-.285-.27zm1.094-.27c-.165 0-.3.135-.3.3l-.09 3.688.09 2.504c0 .165.135.301.3.301.165 0 .301-.135.315-.301l.105-2.504-.105-3.688c-.014-.165-.15-.3-.315-.3zm1.095-.27c-.18 0-.33.15-.33.33l-.075 3.958.075 2.49c0 .179.15.329.33.329.18 0 .33-.149.345-.329l.09-2.49-.09-3.958c-.015-.18-.165-.33-.345-.33zm2.19 1.5c-.21 0-.375.165-.375.375l-.06 2.73.06 2.385c0 .21.165.375.375.375.21 0 .375-.165.39-.375l.075-2.385-.075-2.73c-.015-.21-.18-.375-.39-.375zm-1.096-.54c-.194 0-.359.165-.359.359l-.06 3.27.06 2.43c0 .194.165.359.359.359.194 0 .36-.165.374-.359l.075-2.43-.075-3.27c-.014-.194-.18-.359-.374-.359zm2.19.015c-.225 0-.405.18-.405.404l-.045 3.176.045 2.355c0 .225.18.405.405.405.225 0 .405-.18.42-.405l.06-2.355-.06-3.176c-.015-.225-.195-.404-.42-.404zm1.096.645c-.24 0-.42.18-.42.42l-.03 2.506.03 2.31c0 .24.18.42.42.42.24 0 .42-.18.435-.42l.045-2.31-.045-2.506c-.015-.24-.195-.42-.435-.42zm1.096.105c-.256 0-.45.195-.45.451l-.016 1.95.016 2.25c0 .255.194.449.45.449.255 0 .45-.194.465-.449l.03-2.25-.03-1.95c-.015-.256-.21-.451-.465-.451zm1.096-.24c-.27 0-.48.21-.48.48V14.4l.016 2.19c0 .27.21.48.48.48.27 0 .48-.21.495-.48l.015-2.19V12.73c-.015-.27-.225-.48-.495-.48zm2.294-1.665a.604.604 0 0 0-.219.045c-.029-3.075-2.58-5.565-5.715-5.565-1.095 0-2.114.315-2.985.855-.135.09-.165.15-.165.3v11.07c0 .15.12.285.27.3h8.835c1.71 0 3.09-1.38 3.09-3.09-.015-1.71-1.395-3.09-3.11-3.09z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Copyright -->
+      <p class="text-xs text-white/50">
+        &copy; 2026 Barrett Music Lessons
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Navigation scroll effect
+    const nav = document.querySelector('.nav');
+    const scrollThreshold = 50;
+
+    function handleNavScroll() {
+      if (window.scrollY > scrollThreshold) {
+        nav.classList.add('nav--scrolled');
+      } else {
+        nav.classList.remove('nav--scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.nav__hamburger');
+    const mobileMenu = document.querySelector('.nav__mobile');
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+
+    function toggleMobileMenu() {
+      const isOpen = hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', isOpen);
+
+      if (isOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    hamburger.addEventListener('click', toggleMobileMenu);
+
+    // Close mobile menu when clicking a link
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Scroll indicator hide on scroll
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+
+    function handleScrollIndicator() {
+      if (window.scrollY > 100) {
+        scrollIndicator.classList.add('hidden');
+      } else {
+        scrollIndicator.classList.remove('hidden');
+      }
+    }
+
+    window.addEventListener('scroll', handleScrollIndicator, { passive: true });
+
+    // Scroll reveal animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const navHeight = nav.offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Form submission
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const requiredFields = form.querySelectorAll('[required]');
+      let isValid = true;
+
+      requiredFields.forEach(field => {
+        if (!field.value.trim() && field.type !== 'radio' && field.type !== 'checkbox') {
+          field.style.borderColor = '#dc2626';
+          isValid = false;
+        } else if (field.type !== 'radio' && field.type !== 'checkbox') {
+          field.style.borderColor = '';
+        }
+      });
+
+      const formatSelected = form.querySelector('input[name="format"]:checked');
+      if (!formatSelected) {
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert('Thank you for your interest! You will receive a response as soon as possible.');
+        form.reset();
+      }
+    });
+
+    // Remove error styling on input
+    form.querySelectorAll('input, select, textarea').forEach(field => {
+      field.addEventListener('input', function() {
+        this.style.borderColor = '';
+      });
+    });
+  </script>
+</body>
+</html>
