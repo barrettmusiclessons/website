@@ -863,8 +863,11 @@
 
         <!-- Contact Form -->
         <div class="reveal max-w-[640px] mx-auto">
-          <form class="bg-white rounded-xl p-8 md:p-10 shadow-form" action="#" method="POST" novalidate>
+          <form class="bg-white rounded-xl p-8 md:p-10 shadow-form" action="https://formspree.io/f/xrerlkgy" method="POST" novalidate>
             <p class="text-sm text-text-muted mb-6">* Required</p>
+
+            <!-- Honeypot: bots fill this; humans won't see it -->
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
 
             <!-- Form error summary -->
             <div id="form-errors" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded text-sm text-red-700" role="alert" aria-live="polite"></div>
@@ -1137,8 +1140,32 @@
       }
 
       if (isValid) {
-        alert('Thank you for your interest! You will receive a response as soon as possible.');
-        form.reset();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+          .then(response => {
+            if (response.ok) {
+              alert('Thank you for your interest! You will receive a response as soon as possible.');
+              form.reset();
+            } else {
+              return response.json().then(data => {
+                const msg = data.errors ? data.errors.map(e => e.message).join(', ') : 'Something went wrong. Please try again.';
+                alert(msg);
+              });
+            }
+          })
+          .catch(() => alert('Network error. Please try again.'))
+          .finally(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          });
       }
     });
 
